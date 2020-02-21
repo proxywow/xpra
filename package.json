@@ -1,0 +1,20 @@
+{
+  "name": "xpra",
+  "version": "1.0.0",
+  "description": "Mocha-only nodejs application which tests that XPRA websocket connectivity works and displays an image roughly similar to the fixture screenshot included in the repository.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evan Sarmiento <esarmien@snkattck.co>",
+  "license": "GPLv3",
+  "devDependencies": {
+    "mocha": "^7.0.1"
+  },
+  "dependencies": {
+    "puppeteer": "^2.1.1"
+  }
+}
