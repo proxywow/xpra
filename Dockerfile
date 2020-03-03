@@ -1,9 +1,9 @@
-ARG FEDORA_VERSION
-FROM registry.fedoraproject.org/fedora-minimal:$FEDORA_VERSION
+ARG CENTOS_VERSION
+FROM centos:$CENTOS_VERSION
 ARG XPRA_VERSION
 EXPOSE 8080
 ENV XPRA_UID 5001
-RUN mkdir /tmp/.X11-unix && \
+RUN mkdir -p /tmp/.X11-unix && \
     chmod 1777 /tmp/.X11-unix && \
     adduser -u ${XPRA_UID} -m xpra && \
     touch /etc/dnf/dnf.conf && \
@@ -12,13 +12,15 @@ RUN mkdir /tmp/.X11-unix && \
     chown -R xpra:xpra /run/user/${XPRA_UID} && \
     mkdir -p /var/lib/dbus && \
     rm -f /var/lib/rpm/.rpm.lock && \
-    microdnf -y update && \
+    dnf -y update && \
     rpm --import https://winswitch.org/gpg.asc && \
     cd /etc/yum.repos.d/ && \
-    curl -O https://winswitch.org/downloads/Fedora/winswitch.repo && \
-    microdnf -y update && \
-    microdnf -y --nodocs install xpra-${XPRA_VERSION} xpra-html5-${XPRA_VERSION} x264-xpra ffmpeg-xpra python3-devel python3-uinput && \
-    microdnf -y clean all && \
+    curl -O https://winswitch.org/downloads/CentOS/winswitch.repo && \
+    dnf -y update && \
+    dnf -y --nodocs install xpra-${XPRA_VERSION} xpra-html5-${XPRA_VERSION} xterm x264-xpra ffmpeg-xpra python3-devel python3-uinput lz4 python3-lz4 && \
+    dnf -y remove cups avahi-daemon && \
+    dnf -y clean all && \
+    rm -rf /usr/share/icons && \
     rm -rf /var/cache/yum
 COPY ./xpra.sh /usr/bin/xpra-nodaemon.sh
 RUN chmod a+x /usr/bin/xpra-nodaemon.sh
