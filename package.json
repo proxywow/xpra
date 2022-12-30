@@ -12,7 +12,7 @@
   "author": "Evan Sarmiento <esarmien@snkattck.co>",
   "license": "GPLv3",
   "devDependencies": {
-    "mocha": "^7.0.1"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "puppeteer": "^2.1.1"
